@@ -4277,10 +4277,10 @@
       // Để sử dụng: Tạo bin tại https://jsonbin.io và lấy ID
       // Hoặc để trống để chỉ dùng localStorage
       const WISHES_CONFIG = {
-        jsonbinId: "692fbbe9d0ea881f400f34e8", // Ví dụ: "65a1b2c3d4e5f6g7h8i9j0"
-        jsonbinApiKey: "", // Optional: nếu cần private bin
+        jsonbinId: "692fbbe9d0ea881f400f34e8", 
+        jsonbinApiKey: "$2a$10$quAPh3s4iAAsLsdYmm9cWOH/L1vSkpnwT3A1ychK0lxDrQS0BDdBS", 
         jsonbinUrl: "https://api.jsonbin.io/v3/b",
-        useCloud: false, // Set true nếu có jsonbinId
+        useCloud: true, 
       };
 
       function getWishesStorageKey() {
@@ -4342,7 +4342,10 @@
 
           const data = await response.json();
           const slug = getInvitationSlug();
-          const wishes = data.record?.[slug] || data.record?.wishes || [];
+
+          // Lấy wishes từ record theo slug
+          // Format: { "nguyen-van-a": [...], "em_iu_tlong": [...] }
+          const wishes = data.record?.[slug] || [];
           return Array.isArray(wishes) ? wishes : [];
         } catch (error) {
           console.error("Lỗi khi load từ cloud:", error);
@@ -4407,9 +4410,29 @@
             headers["X-Master-Key"] = WISHES_CONFIG.jsonbinApiKey;
           }
 
-          // Cấu trúc data: { "nguyen-van-a": [...wishes], "guest-2": [...wishes] }
-          // Hoặc đơn giản: { "wishes": [...wishes] }
+          // Lấy dữ liệu hiện có từ cloud để merge (không ghi đè)
+          let existingData = {};
+          try {
+            const getUrl = `${WISHES_CONFIG.jsonbinUrl}/${WISHES_CONFIG.jsonbinId}/latest`;
+            const getHeaders = { "Content-Type": "application/json" };
+            if (WISHES_CONFIG.jsonbinApiKey) {
+              getHeaders["X-Master-Key"] = WISHES_CONFIG.jsonbinApiKey;
+            }
+            const getResponse = await fetch(getUrl, { headers: getHeaders });
+            if (getResponse.ok) {
+              const getData = await getResponse.json();
+              existingData = getData.record || {};
+            }
+          } catch (error) {
+            console.warn(
+              "Không thể lấy dữ liệu hiện có từ cloud, sẽ tạo mới:",
+              error
+            );
+          }
+
+          // Merge: giữ nguyên dữ liệu của các guests khác, chỉ cập nhật guest hiện tại
           const payload = {
+            ...existingData,
             [slug]: wishes,
           };
 
