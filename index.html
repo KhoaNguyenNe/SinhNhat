@@ -4538,6 +4538,10 @@
 
         WISHES.list.innerHTML = wishes
           .map((wish, index) => {
+            const safeMessage =
+              wish && typeof wish.message === "string" && wish.message.trim()
+                ? escapeHtml(wish.message)
+                : "<span style='opacity:0.6;'>[Lời chúc trống]</span>";
             return `
               <div class="thiepsinhnhat__wishes-item" style="animation-delay: ${
                 index * 0.1
@@ -4550,9 +4554,7 @@
                     wish.date
                   )}</span>
                 </div>
-                <div class="thiepsinhnhat__wishes-item-message">${escapeHtml(
-                  wish.message
-                )}</div>
+                <div class="thiepsinhnhat__wishes-item-message">${safeMessage}</div>
               </div>
             `;
           })
@@ -4571,15 +4573,6 @@
         // - Danh sách sẽ được reload:
         //   + Ngay khi vào trang (ở trên)
         //   + Sau khi gửi lời chúc (trong submit handler)
-        //   + Khi tab lấy lại focus (window 'focus' bên dưới)
-        if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
-          window.addEventListener("focus", () => {
-            // Khi người dùng quay lại tab, reload lời chúc một lần
-            renderWishes().catch((error) => {
-              console.warn("Lỗi khi reload wishes khi focus:", error);
-            });
-          });
-        }
 
         // Character counter
         if (WISHES.charCount && WISHES.messageInput) {
