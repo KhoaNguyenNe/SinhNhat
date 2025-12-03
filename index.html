@@ -3507,10 +3507,16 @@
       // Kiểm tra xem password (key) có tồn tại trong invitations.json không
       async function checkGuestKeyExists(key) {
         try {
-          const response = await fetch("data/invitations.json", {
+          const jsonPath = getResourcePath('data/invitations.json');
+          
+          const response = await fetch(jsonPath, {
             cache: "no-store",
+            headers: {
+              'Accept': 'application/json',
+            }
           });
           if (!response.ok) {
+            console.error(`HTTP ${response.status}: Không thể tải invitations.json từ ${jsonPath}`);
             return false;
           }
           const data = await response.json();
@@ -4048,6 +4054,27 @@
       // ===================================
       // Data Loading & Binding
       // ===================================
+      // Helper function để lấy đường dẫn đúng cho cả local và GitHub Pages
+      function getBasePath() {
+        const pathname = window.location.pathname;
+        // Nếu đang ở root (/) hoặc index.html ở root
+        if (pathname === '/' || pathname === '/index.html' || pathname.endsWith('/index.html')) {
+          return './';
+        }
+        // Nếu có subdirectory, lấy path đến thư mục chứa index.html
+        const lastSlash = pathname.lastIndexOf('/');
+        if (lastSlash > 0) {
+          return pathname.substring(0, lastSlash + 1);
+        }
+        return './';
+      }
+
+      function getResourcePath(relativePath) {
+        const base = getBasePath();
+        const path = `${base}${relativePath}`.replace(/\/\//g, '/');
+        return path;
+      }
+
       function getInvitationSlug() {
         const params = new URLSearchParams(window.location.search);
         const fromQuery = params.get("guest");
@@ -4077,12 +4104,17 @@
         const slug = getInvitationSlug();
 
         try {
-          const response = await fetch("data/invitations.json", {
+          const jsonPath = getResourcePath('data/invitations.json');
+          
+          const response = await fetch(jsonPath, {
             cache: "no-store",
+            headers: {
+              'Accept': 'application/json',
+            }
           });
           if (!response.ok) {
             throw new Error(
-              `Không thể tải dữ liệu khách mời (HTTP ${response.status})`
+              `Không thể tải dữ liệu khách mời (HTTP ${response.status}) từ ${jsonPath}`
             );
           }
 
@@ -4644,10 +4676,35 @@
     </script>
     <script>
       // Đọc dữ liệu từ invitations.json
-      fetch("data/invitations.json")
+      (function() {
+        // Helper function để lấy đường dẫn đúng
+        function getBasePath() {
+          const pathname = window.location.pathname;
+          if (pathname === '/' || pathname === '/index.html' || pathname.endsWith('/index.html')) {
+            return './';
+          }
+          const lastSlash = pathname.lastIndexOf('/');
+          if (lastSlash > 0) {
+            return pathname.substring(0, lastSlash + 1);
+          }
+          return './';
+        }
+        
+        function getResourcePath(relativePath) {
+          const base = getBasePath();
+          return `${base}${relativePath}`.replace(/\/\//g, '/');
+        }
+        
+        const jsonPath = getResourcePath('data/invitations.json');
+        
+        fetch(jsonPath, {
+          headers: {
+            'Accept': 'application/json',
+          }
+        })
         .then((response) => {
           if (!response.ok) {
-            throw new Error("Không tải được invitations.json");
+            throw new Error(`Không tải được invitations.json từ ${jsonPath} (HTTP ${response.status})`);
           }
           return response.json();
         })
@@ -4748,9 +4805,10 @@
           // TODO: nếu bạn có countdown thì ở đây đọc guest.countdownDate và khởi động lại đồng hồ
         })
         .catch((err) => {
-          console.error(err);
+          console.error("Lỗi khi tải invitations.json:", err);
           // Có thể hiển thị thông báo lỗi nhẹ nhàng nếu muốn
         });
+      })(); // Đóng IIFE
     </script>
   </body>
 </html>
