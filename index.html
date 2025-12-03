@@ -1133,6 +1133,393 @@
       color: var(--thiepsinhnhat-color-gray);
     }
 
+    /* ===================================
+   Wishes Section
+   =================================== */
+    .thiepsinhnhat__card-wishes-section {
+      margin-bottom: var(--thiepsinhnhat-spacing-xl);
+      padding-bottom: var(--thiepsinhnhat-spacing-xl);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+      animation: thiepsinhnhat-fade-in 1s ease 0.85s backwards;
+    }
+
+    .thiepsinhnhat__card-wishes-title {
+      font-family: var(--thiepsinhnhat-font-display);
+      font-size: 1.8rem;
+      text-align: center;
+      color: var(--thiepsinhnhat-color-primary);
+      margin-bottom: var(--thiepsinhnhat-spacing-lg);
+      letter-spacing: 2px;
+    }
+
+    .thiepsinhnhat__wishes-form {
+      margin-bottom: var(--thiepsinhnhat-spacing-xl);
+      padding: var(--thiepsinhnhat-spacing-xl);
+      background: linear-gradient(
+        135deg,
+        rgba(212, 175, 55, 0.08) 0%,
+        rgba(170, 143, 59, 0.05) 100%
+      );
+      border-radius: var(--thiepsinhnhat-radius-lg);
+      border: 2px solid rgba(212, 175, 55, 0.3);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2),
+        inset 0 0 60px rgba(212, 175, 55, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .thiepsinhnhat__wishes-form::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(
+        circle,
+        rgba(212, 175, 55, 0.1) 0%,
+        transparent 70%
+      );
+      animation: thiepsinhnhat-form-glow 4s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    @keyframes thiepsinhnhat-form-glow {
+      0%,
+      100% {
+        opacity: 0.3;
+        transform: translate(0, 0) scale(1);
+      }
+      50% {
+        opacity: 0.6;
+        transform: translate(20px, 20px) scale(1.1);
+      }
+    }
+
+    .thiepsinhnhat__wishes-form-group {
+      margin-bottom: var(--thiepsinhnhat-spacing-lg);
+      position: relative;
+      z-index: 2;
+    }
+
+    .thiepsinhnhat__wishes-form-label {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--thiepsinhnhat-color-primary);
+      margin-bottom: var(--thiepsinhnhat-spacing-md);
+      letter-spacing: 1px;
+      text-align: center;
+      font-family: var(--thiepsinhnhat-font-display);
+    }
+
+    .thiepsinhnhat__wishes-form-input {
+      width: 100%;
+      padding: var(--thiepsinhnhat-spacing-md) var(--thiepsinhnhat-spacing-lg);
+      background: rgba(26, 26, 46, 0.8);
+      border: 2px solid rgba(212, 175, 55, 0.4);
+      border-radius: var(--thiepsinhnhat-radius-md);
+      color: var(--thiepsinhnhat-color-light);
+      font-family: var(--thiepsinhnhat-font-primary);
+      font-size: 1.05rem;
+      outline: none;
+      transition: all var(--thiepsinhnhat-transition-normal);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .thiepsinhnhat__wishes-form-input::placeholder {
+      color: var(--thiepsinhnhat-color-gray);
+      opacity: 0.7;
+    }
+
+    .thiepsinhnhat__wishes-form-input:focus {
+      background: rgba(26, 26, 46, 0.95);
+      border-color: var(--thiepsinhnhat-color-accent);
+      box-shadow: 0 0 30px rgba(212, 175, 55, 0.5),
+        inset 0 0 20px rgba(212, 175, 55, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .thiepsinhnhat__wishes-form-textarea {
+      min-height: 120px;
+      resize: vertical;
+      font-family: var(--thiepsinhnhat-font-primary);
+      line-height: 1.8;
+    }
+
+    .thiepsinhnhat__wishes-form-char-count {
+      text-align: right;
+      margin-top: var(--thiepsinhnhat-spacing-xs);
+      font-size: 0.85rem;
+      color: var(--thiepsinhnhat-color-gray);
+      font-weight: 500;
+    }
+
+    .thiepsinhnhat__wishes-form-char-count span {
+      color: var(--thiepsinhnhat-color-primary);
+      font-weight: 600;
+    }
+
+    .thiepsinhnhat__wishes-form-button {
+      width: 100%;
+      padding: var(--thiepsinhnhat-spacing-md) var(--thiepsinhnhat-spacing-xl);
+      background: var(--thiepsinhnhat-gradient-gold);
+      color: var(--thiepsinhnhat-color-dark);
+      border: none;
+      border-radius: var(--thiepsinhnhat-radius-md);
+      font-family: var(--thiepsinhnhat-font-primary);
+      font-size: 1.1rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all var(--thiepsinhnhat-transition-normal);
+      box-shadow: var(--thiepsinhnhat-shadow-gold),
+        0 0 30px rgba(212, 175, 55, 0.4);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: var(--thiepsinhnhat-spacing-sm);
+      z-index: 2;
+    }
+
+    .thiepsinhnhat__wishes-form-button::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+      );
+      transition: left 0.5s ease;
+    }
+
+    .thiepsinhnhat__wishes-form-button:hover::before {
+      left: 100%;
+    }
+
+    .thiepsinhnhat__wishes-form-button:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 20px 50px rgba(212, 175, 55, 0.6),
+        0 0 40px rgba(212, 175, 55, 0.5);
+    }
+
+    .thiepsinhnhat__wishes-form-button:active {
+      transform: translateY(-2px) scale(1);
+    }
+
+    .thiepsinhnhat__wishes-form-button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: var(--thiepsinhnhat-shadow-gold);
+    }
+
+    .thiepsinhnhat__wishes-form-button-text {
+      position: relative;
+      z-index: 1;
+    }
+
+    .thiepsinhnhat__wishes-form-button-icon {
+      position: relative;
+      z-index: 1;
+      font-size: 1.2rem;
+      transition: transform var(--thiepsinhnhat-transition-fast);
+    }
+
+    .thiepsinhnhat__wishes-form-button:hover
+      .thiepsinhnhat__wishes-form-button-icon {
+      transform: scale(1.2) rotate(10deg);
+    }
+
+    /* Wishes List */
+    .thiepsinhnhat__wishes-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--thiepsinhnhat-spacing-md);
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: var(--thiepsinhnhat-spacing-xs);
+      margin-top: var(--thiepsinhnhat-spacing-lg);
+    }
+
+    .thiepsinhnhat__wishes-list::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .thiepsinhnhat__wishes-list::-webkit-scrollbar-track {
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: 4px;
+    }
+
+    .thiepsinhnhat__wishes-list::-webkit-scrollbar-thumb {
+      background: var(--thiepsinhnhat-gradient-gold);
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+    }
+
+    .thiepsinhnhat__wishes-list::-webkit-scrollbar-thumb:hover {
+      background: var(--thiepsinhnhat-color-accent);
+    }
+
+    .thiepsinhnhat__wishes-item {
+      padding: var(--thiepsinhnhat-spacing-lg);
+      background: linear-gradient(
+        135deg,
+        rgba(212, 175, 55, 0.1) 0%,
+        rgba(170, 143, 59, 0.08) 100%
+      );
+      border-left: 4px solid var(--thiepsinhnhat-color-primary);
+      border-radius: var(--thiepsinhnhat-radius-md);
+      transition: all var(--thiepsinhnhat-transition-normal);
+      animation: thiepsinhnhat-wish-slide-in 0.5s ease backwards;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .thiepsinhnhat__wishes-item::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--thiepsinhnhat-gradient-gold);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform var(--thiepsinhnhat-transition-normal);
+    }
+
+    .thiepsinhnhat__wishes-item:hover::before {
+      transform: scaleY(1);
+    }
+
+    .thiepsinhnhat__wishes-item:hover {
+      background: linear-gradient(
+        135deg,
+        rgba(212, 175, 55, 0.15) 0%,
+        rgba(170, 143, 59, 0.12) 100%
+      );
+      transform: translateX(8px);
+      box-shadow: 0 8px 25px rgba(212, 175, 55, 0.3),
+        0 0 30px rgba(212, 175, 55, 0.2);
+      border-left-color: var(--thiepsinhnhat-color-accent);
+    }
+
+    @keyframes thiepsinhnhat-wish-slide-in {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .thiepsinhnhat__wishes-item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: var(--thiepsinhnhat-spacing-sm);
+      padding-bottom: var(--thiepsinhnhat-spacing-sm);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .thiepsinhnhat__wishes-item-name {
+      font-weight: 700;
+      color: var(--thiepsinhnhat-color-primary);
+      font-size: 1.1rem;
+      font-family: var(--thiepsinhnhat-font-display);
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: var(--thiepsinhnhat-spacing-xs);
+      text-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+    }
+
+    .thiepsinhnhat__wishes-item-name::before {
+      content: "👤";
+      font-size: 0.9rem;
+      filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.5));
+    }
+
+    .thiepsinhnhat__wishes-item-date {
+      font-size: 0.85rem;
+      color: var(--thiepsinhnhat-color-gray);
+      font-weight: 500;
+      padding: var(--thiepsinhnhat-spacing-xs) var(--thiepsinhnhat-spacing-sm);
+      background: rgba(212, 175, 55, 0.1);
+      border-radius: var(--thiepsinhnhat-radius-sm);
+      white-space: nowrap;
+    }
+
+    .thiepsinhnhat__wishes-item-message {
+      color: var(--thiepsinhnhat-color-light);
+      line-height: 1.8;
+      margin-top: var(--thiepsinhnhat-spacing-sm);
+      font-size: 1rem;
+      font-style: italic;
+      padding: var(--thiepsinhnhat-spacing-sm);
+      background: rgba(26, 26, 46, 0.3);
+      border-radius: var(--thiepsinhnhat-radius-sm);
+      position: relative;
+      padding-left: var(--thiepsinhnhat-spacing-lg);
+    }
+
+    .thiepsinhnhat__wishes-item-message::before {
+      content: '"';
+      position: absolute;
+      left: var(--thiepsinhnhat-spacing-xs);
+      top: var(--thiepsinhnhat-spacing-xs);
+      font-size: 2rem;
+      color: var(--thiepsinhnhat-color-primary);
+      opacity: 0.4;
+      font-family: var(--thiepsinhnhat-font-display);
+      line-height: 1;
+    }
+
+    .thiepsinhnhat__wishes-empty {
+      text-align: center;
+      padding: var(--thiepsinhnhat-spacing-xl);
+      color: var(--thiepsinhnhat-color-gray);
+      font-style: italic;
+      font-size: 1.1rem;
+      background: rgba(212, 175, 55, 0.05);
+      border-radius: var(--thiepsinhnhat-radius-md);
+      border: 2px dashed rgba(212, 175, 55, 0.3);
+      animation: thiepsinhnhat-fade-in 0.5s ease;
+    }
+
+    .thiepsinhnhat__wishes-success {
+      padding: var(--thiepsinhnhat-spacing-sm) var(--thiepsinhnhat-spacing-md);
+      background: linear-gradient(
+        135deg,
+        rgba(76, 175, 80, 0.2) 0%,
+        rgba(56, 142, 60, 0.15) 100%
+      );
+      border: 2px solid rgba(76, 175, 80, 0.5);
+      border-radius: var(--thiepsinhnhat-radius-md);
+      color: #81c784;
+      text-align: center;
+      margin-bottom: var(--thiepsinhnhat-spacing-md);
+      animation: thiepsinhnhat-fade-in 0.3s ease;
+      font-weight: 600;
+      box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+    }
+
+    .thiepsinhnhat__wishes-success[hidden] {
+      display: none;
+    }
+
     /* Footer */
     .thiepsinhnhat__card-footer {
       text-align: center;
@@ -1388,8 +1775,8 @@
       box-shadow: var(--thiepsinhnhat-shadow-lg),
         0 0 100px rgba(212, 175, 55, 0.3);
       border: 2px solid rgba(212, 175, 55, 0.3);
-      animation: thiepsinhnhat-modal-slide-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1)
-        forwards;
+      animation: thiepsinhnhat-modal-slide-up 0.4s
+        cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
     }
 
     @keyframes thiepsinhnhat-modal-fade-in {
@@ -1724,6 +2111,44 @@
         font-size: 0.8rem;
       }
 
+      .thiepsinhnhat__card-wishes-title {
+        font-size: 1.4rem;
+      }
+
+      .thiepsinhnhat__wishes-form {
+        padding: var(--thiepsinhnhat-spacing-md);
+      }
+
+      .thiepsinhnhat__wishes-list {
+        max-height: 400px;
+        gap: var(--thiepsinhnhat-spacing-sm);
+      }
+
+      .thiepsinhnhat__wishes-item {
+        padding: var(--thiepsinhnhat-spacing-md);
+      }
+
+      .thiepsinhnhat__wishes-item-name {
+        font-size: 1rem;
+      }
+
+      .thiepsinhnhat__wishes-item-date {
+        font-size: 0.75rem;
+        padding: 4px 8px;
+      }
+
+      .thiepsinhnhat__wishes-item-message {
+        font-size: 0.9rem;
+        padding: var(--thiepsinhnhat-spacing-xs);
+        padding-left: var(--thiepsinhnhat-spacing-md);
+      }
+
+      .thiepsinhnhat__wishes-item-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--thiepsinhnhat-spacing-xs);
+      }
+
       .thiepsinhnhat__card-details-item {
         padding: var(--thiepsinhnhat-spacing-sm);
         gap: var(--thiepsinhnhat-spacing-sm);
@@ -2039,6 +2464,7 @@
       <!-- Card Wrapper -->
       <article
         class="thiepsinhnhat__card-wrapper"
+        id="cardWrapper"
         itemscope
         itemtype="https://schema.org/Event"
       >
@@ -2507,6 +2933,61 @@
                   </div>
                 </section>
 
+                <!-- Wishes Section -->
+                <section class="thiepsinhnhat__card-wishes-section">
+                  <h3 class="thiepsinhnhat__card-wishes-title">
+                    💝 Lời Chúc Mừng
+                  </h3>
+
+                  <!-- Success Message -->
+                  <div
+                    class="thiepsinhnhat__wishes-success"
+                    id="wishesSuccess"
+                    hidden
+                  >
+                    ✨ Cảm ơn bạn đã gửi lời chúc! 🎉
+                  </div>
+
+                  <!-- Form -->
+                  <form class="thiepsinhnhat__wishes-form" id="wishesForm">
+                    <div class="thiepsinhnhat__wishes-form-group">
+                      <label
+                        class="thiepsinhnhat__wishes-form-label"
+                        for="wishMessage"
+                      >
+                        💝 Lời chúc của bạn *
+                      </label>
+                      <textarea
+                        class="thiepsinhnhat__wishes-form-input thiepsinhnhat__wishes-form-textarea"
+                        id="wishMessage"
+                        placeholder="Viết lời chúc mừng sinh nhật ở đây..."
+                        required
+                        maxlength="500"
+                      ></textarea>
+                      <div class="thiepsinhnhat__wishes-form-char-count">
+                        <span id="charCount">0</span> / 500
+                      </div>
+                    </div>
+                    <button
+                      type="submit"
+                      class="thiepsinhnhat__wishes-form-button"
+                      id="wishSubmitBtn"
+                    >
+                      <span class="thiepsinhnhat__wishes-form-button-text"
+                        >Gửi Lời Chúc</span
+                      >
+                      <span class="thiepsinhnhat__wishes-form-button-icon"
+                        >💌</span
+                      >
+                    </button>
+                  </form>
+
+                  <!-- Wishes List -->
+                  <div class="thiepsinhnhat__wishes-list" id="wishesList">
+                    <!-- Wishes will be loaded here -->
+                  </div>
+                </section>
+
                 <!-- Footer -->
                 <footer class="thiepsinhnhat__card-footer">
                   <div class="thiepsinhnhat__card-footer-divider"></div>
@@ -2584,17 +3065,31 @@
       <div class="thiepsinhnhat__password-modal-overlay"></div>
       <div class="thiepsinhnhat__password-modal-content">
         <div class="thiepsinhnhat__password-modal-header">
-          <h3 class="thiepsinhnhat__password-modal-title">🔒 Nhập Mật Khẩu</h3>
-          <p class="thiepsinhnhat__password-modal-subtitle">
+          <h3
+            class="thiepsinhnhat__password-modal-title"
+            id="passwordModalTitle"
+          >
+            🔒 Nhập Mật Khẩu
+          </h3>
+          <p
+            class="thiepsinhnhat__password-modal-subtitle"
+            id="passwordModalSubtitle"
+          >
             Vui lòng nhập mật khẩu để mở thiệp
+          </p>
+          <p
+            class="thiepsinhnhat__password-modal-subtitle"
+            id="passwordModalSubtitle2"
+          >
+            Liên hệ MiKa để lấy
           </p>
         </div>
         <div class="thiepsinhnhat__password-modal-body">
           <input
-            type="password"
+            type="text"
             class="thiepsinhnhat__password-input"
             id="passwordInput"
-            placeholder="Nhập mật khẩu..."
+            placeholder="Nhập mã thiệp hoặc mật khẩu..."
             autocomplete="off"
             autofocus
           />
@@ -2727,6 +3222,17 @@
         timeRange: document.getElementById("eventTimeRange"),
         location: document.getElementById("eventLocation"),
         message: document.getElementById("guestMessage"),
+      };
+
+      const WISHES = {
+        form: document.getElementById("wishesForm"),
+        messageInput: document.getElementById("wishMessage"),
+        submitBtn: document.getElementById("wishSubmitBtn"),
+        list: document.getElementById("wishesList"),
+        success: document.getElementById("wishesSuccess"),
+        storageKey: "birthday_wishes",
+        charCount: document.getElementById("charCount"),
+        currentGuestName: "", // Sẽ được set từ invitation data
       };
 
       // ===================================
@@ -2936,6 +3442,45 @@
         if (!DOM.password.modal || !DOM.password.input) {
           return;
         }
+
+        // Cập nhật title và subtitle dựa trên việc có guest parameter hay không
+        const titleEl = document.getElementById("passwordModalTitle");
+        const subtitleEl = document.getElementById("passwordModalSubtitle");
+        const subtitleEl2 = document.getElementById("passwordModalSubtitle2");
+
+        if (!hasGuestParameter()) {
+          // Nếu không có guest parameter, yêu cầu nhập key
+          if (titleEl) {
+            titleEl.textContent = "🔑 Nhập Mã Thiệp";
+          }
+          if (subtitleEl) {
+            subtitleEl.textContent = "Vui lòng nhập mã thiệp";
+          }
+          if (subtitleEl2) {
+            subtitleEl2.textContent = "Liên hệ MiKa để lấy :D";
+            subtitleEl2.style.display = "block";
+          }
+          if (DOM.password.input) {
+            DOM.password.input.placeholder = "Nhập mã thiệp";
+            DOM.password.input.type = "text"; // Đổi thành text để dễ nhập
+          }
+        } else {
+          // Nếu đã có guest parameter, yêu cầu nhập password
+          if (titleEl) {
+            titleEl.textContent = "🔒 Nhập Mật Khẩu";
+          }
+          if (subtitleEl) {
+            subtitleEl.textContent = "Vui lòng nhập mật khẩu để mở thiệp";
+          }
+          if (subtitleEl2) {
+            subtitleEl2.style.display = "none";
+          }
+          if (DOM.password.input) {
+            DOM.password.input.placeholder = "Nhập mật khẩu...";
+            DOM.password.input.type = "password"; // Giữ password type
+          }
+        }
+
         DOM.password.modal.hidden = false;
         DOM.password.input.value = "";
         DOM.password.error.hidden = true;
@@ -2953,33 +3498,115 @@
         document.body.style.overflow = "";
       }
 
-      function verifyPassword(inputPassword) {
-        const correctPassword = STATE.currentPassword || "";
-        // Nếu không có mật khẩu được set, cho phép mở thiệp
-        if (!correctPassword || correctPassword.trim() === "") {
-          return true;
-        }
-        return inputPassword.trim() === correctPassword.trim();
+      // Kiểm tra xem có guest parameter trong URL không
+      function hasGuestParameter() {
+        const params = new URLSearchParams(window.location.search);
+        return params.has("guest") && params.get("guest");
       }
 
-      function handlePasswordSubmit() {
+      // Kiểm tra xem password (key) có tồn tại trong invitations.json không
+      async function checkGuestKeyExists(key) {
+        try {
+          const response = await fetch("data/invitations.json", {
+            cache: "no-store",
+          });
+          if (!response.ok) {
+            return false;
+          }
+          const data = await response.json();
+          const guests = data.guests || {};
+          // Kiểm tra xem key có tồn tại trong guests không
+          return guests.hasOwnProperty(key.trim().toLowerCase());
+        } catch (error) {
+          console.error("Lỗi khi kiểm tra key:", error);
+          return false;
+        }
+      }
+
+      function verifyPassword(inputPassword) {
+        // Nếu đã có guest parameter, dùng logic cũ (kiểm tra password field)
+        if (hasGuestParameter()) {
+          const correctPassword = STATE.currentPassword || "";
+          if (!correctPassword || correctPassword.trim() === "") {
+            return true;
+          }
+          return inputPassword.trim() === correctPassword.trim();
+        }
+        // Nếu không có guest parameter, password chính là key
+        // Sẽ được kiểm tra trong handlePasswordSubmit
+        return true;
+      }
+
+      async function handlePasswordSubmit() {
         if (!DOM.password.input) {
           return;
         }
-        const inputPassword = DOM.password.input.value;
-        if (verifyPassword(inputPassword)) {
-          STATE.isPasswordVerified = true;
-          hidePasswordModal();
-          openCardWithPassword();
-        } else {
+        const inputPassword = DOM.password.input.value.trim();
+
+        // Nếu đã có guest parameter, dùng logic cũ
+        if (hasGuestParameter()) {
+          if (verifyPassword(inputPassword)) {
+            STATE.isPasswordVerified = true;
+            hidePasswordModal();
+            openCardWithPassword();
+          } else {
+            DOM.password.error.hidden = false;
+            DOM.password.input.value = "";
+            DOM.password.input.focus();
+            DOM.password.input.style.animation = "none";
+            setTimeout(() => {
+              DOM.password.input.style.animation =
+                "thiepsinhnhat-shake 0.5s ease";
+            }, 10);
+          }
+          return;
+        }
+
+        // Nếu không có guest parameter, kiểm tra key và redirect
+        if (!inputPassword) {
           DOM.password.error.hidden = false;
-          DOM.password.input.value = "";
-          DOM.password.input.focus();
-          // Thêm hiệu ứng shake
-          DOM.password.input.style.animation = "none";
-          setTimeout(() => {
-            DOM.password.input.style.animation = "thiepsinhnhat-shake 0.5s ease";
-          }, 10);
+          DOM.password.error.textContent = "Vui lòng nhập mã thiệp!";
+          return;
+        }
+
+        // Disable button trong khi kiểm tra
+        if (DOM.password.submit) {
+          DOM.password.submit.disabled = true;
+          DOM.password.submit.textContent = "Đang kiểm tra...";
+        }
+
+        try {
+          const keyExists = await checkGuestKeyExists(inputPassword);
+
+          if (keyExists) {
+            // Redirect đến trang với guest parameter
+            const newUrl = `index.html?guest=${encodeURIComponent(
+              inputPassword.toLowerCase()
+            )}`;
+            window.location.href = newUrl;
+          } else {
+            // Hiển thị lỗi
+            DOM.password.error.hidden = false;
+            DOM.password.error.textContent =
+              "Mã thiệp không đúng. Vui lòng thử lại!";
+            DOM.password.input.value = "";
+            DOM.password.input.focus();
+            DOM.password.input.style.animation = "none";
+            setTimeout(() => {
+              DOM.password.input.style.animation =
+                "thiepsinhnhat-shake 0.5s ease";
+            }, 10);
+          }
+        } catch (error) {
+          console.error("Lỗi khi kiểm tra mã thiệp:", error);
+          DOM.password.error.hidden = false;
+          DOM.password.error.textContent = "Có lỗi xảy ra. Vui lòng thử lại!";
+        } finally {
+          // Enable lại button
+          if (DOM.password.submit) {
+            DOM.password.submit.disabled = false;
+            DOM.password.submit.textContent = "Xác Nhận";
+          }
         }
       }
 
@@ -2994,7 +3621,11 @@
       }
 
       function initPasswordModal() {
-        if (!DOM.password.modal || !DOM.password.submit || !DOM.password.cancel) {
+        if (
+          !DOM.password.modal ||
+          !DOM.password.submit ||
+          !DOM.password.cancel
+        ) {
           return;
         }
 
@@ -3039,7 +3670,7 @@
           return;
         }
         DOM.openCard.addEventListener("click", () => {
-          // Kiểm tra xem đã verify password chưa
+          // Nếu đã có guest parameter, kiểm tra password như bình thường
           if (STATE.isPasswordVerified) {
             openCardWithPassword();
           } else {
@@ -3592,12 +4223,370 @@
       }
 
       // ===================================
+      // Wishes Management (Cloud + LocalStorage)
+      // ===================================
+      // JSONBin.io Configuration
+      // Để sử dụng: Tạo bin tại https://jsonbin.io và lấy ID
+      // Hoặc để trống để chỉ dùng localStorage
+      const WISHES_CONFIG = {
+        jsonbinId: "", // Ví dụ: "65a1b2c3d4e5f6g7h8i9j0"
+        jsonbinApiKey: "", // Optional: nếu cần private bin
+        jsonbinUrl: "https://api.jsonbin.io/v3/b",
+        useCloud: false, // Set true nếu có jsonbinId
+      };
+
+      function getWishesStorageKey() {
+        const slug = getInvitationSlug();
+        return `${WISHES.storageKey}_${slug}`;
+      }
+
+      async function loadWishes() {
+        // Thử load từ cloud trước
+        if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
+          try {
+            const wishes = await loadWishesFromCloud();
+            if (wishes && wishes.length > 0) {
+              // Đồng bộ với localStorage
+              const storageKey = getWishesStorageKey();
+              localStorage.setItem(storageKey, JSON.stringify(wishes));
+              return wishes;
+            }
+          } catch (error) {
+            console.warn("Không thể load từ cloud, dùng localStorage:", error);
+          }
+        }
+
+        // Fallback to localStorage
+        try {
+          const storageKey = getWishesStorageKey();
+          const stored = localStorage.getItem(storageKey);
+          if (!stored) {
+            return [];
+          }
+          const wishes = JSON.parse(stored);
+          return Array.isArray(wishes) ? wishes : [];
+        } catch (error) {
+          console.warn("Lỗi khi đọc lời chúc từ localStorage:", error);
+          return [];
+        }
+      }
+
+      async function loadWishesFromCloud() {
+        if (!WISHES_CONFIG.jsonbinId) {
+          return [];
+        }
+
+        try {
+          const url = `${WISHES_CONFIG.jsonbinUrl}/${WISHES_CONFIG.jsonbinId}/latest`;
+          const headers = {
+            "Content-Type": "application/json",
+          };
+
+          if (WISHES_CONFIG.jsonbinApiKey) {
+            headers["X-Master-Key"] = WISHES_CONFIG.jsonbinApiKey;
+          }
+
+          const response = await fetch(url, { headers });
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const data = await response.json();
+          const slug = getInvitationSlug();
+          const wishes = data.record?.[slug] || data.record?.wishes || [];
+          return Array.isArray(wishes) ? wishes : [];
+        } catch (error) {
+          console.error("Lỗi khi load từ cloud:", error);
+          throw error;
+        }
+      }
+
+      async function saveWish(message) {
+        const name = WISHES.currentGuestName || "Khách";
+        const newWish = {
+          id: Date.now().toString() + Math.random().toString(36).substr(2, 9),
+          name: name.trim(),
+          message: message.trim(),
+          date: new Date().toISOString(),
+          timestamp: Date.now(),
+        };
+
+        // Lưu vào localStorage trước
+        try {
+          const storageKey = getWishesStorageKey();
+          const wishes = await loadWishes();
+          wishes.unshift(newWish); // Thêm vào đầu danh sách
+
+          // Giới hạn tối đa 1000 lời chúc
+          const maxWishes = 1000;
+          const trimmedWishes = wishes.slice(0, maxWishes);
+
+          localStorage.setItem(storageKey, JSON.stringify(trimmedWishes));
+
+          // Đồng bộ lên cloud nếu có
+          if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
+            try {
+              await saveWishesToCloud(trimmedWishes);
+            } catch (error) {
+              console.warn(
+                "Không thể lưu lên cloud, đã lưu vào localStorage:",
+                error
+              );
+            }
+          }
+
+          return newWish;
+        } catch (error) {
+          console.error("Lỗi khi lưu lời chúc:", error);
+          throw error;
+        }
+      }
+
+      async function saveWishesToCloud(wishes) {
+        if (!WISHES_CONFIG.jsonbinId) {
+          return;
+        }
+
+        try {
+          const slug = getInvitationSlug();
+          const url = `${WISHES_CONFIG.jsonbinUrl}/${WISHES_CONFIG.jsonbinId}`;
+          const headers = {
+            "Content-Type": "application/json",
+          };
+
+          if (WISHES_CONFIG.jsonbinApiKey) {
+            headers["X-Master-Key"] = WISHES_CONFIG.jsonbinApiKey;
+          }
+
+          // Cấu trúc data: { "nguyen-van-a": [...wishes], "guest-2": [...wishes] }
+          // Hoặc đơn giản: { "wishes": [...wishes] }
+          const payload = {
+            [slug]: wishes,
+          };
+
+          const response = await fetch(url, {
+            method: "PUT",
+            headers,
+            body: JSON.stringify(payload),
+          });
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          return await response.json();
+        } catch (error) {
+          console.error("Lỗi khi lưu lên cloud:", error);
+          throw error;
+        }
+      }
+
+      function formatDate(dateString) {
+        try {
+          const date = new Date(dateString);
+          const now = new Date();
+          const diffMs = now - date;
+          const diffMins = Math.floor(diffMs / 60000);
+          const diffHours = Math.floor(diffMs / 3600000);
+          const diffDays = Math.floor(diffMs / 86400000);
+
+          if (diffMins < 1) {
+            return "Vừa xong";
+          } else if (diffMins < 60) {
+            return `${diffMins} phút trước`;
+          } else if (diffHours < 24) {
+            return `${diffHours} giờ trước`;
+          } else if (diffDays < 7) {
+            return `${diffDays} ngày trước`;
+          } else {
+            return date.toLocaleDateString("vi-VN", {
+              day: "2-digit",
+              month: "2-digit",
+              year: "numeric",
+            });
+          }
+        } catch (error) {
+          return "";
+        }
+      }
+
+      async function renderWishes() {
+        if (!WISHES.list) {
+          return;
+        }
+
+        const wishes = await loadWishes();
+
+        if (wishes.length === 0) {
+          WISHES.list.innerHTML = `
+            <div class="thiepsinhnhat__wishes-empty">
+              Chưa có lời chúc nào. Hãy là người đầu tiên gửi lời chúc! 💝
+            </div>
+          `;
+          return;
+        }
+
+        WISHES.list.innerHTML = wishes
+          .map((wish, index) => {
+            return `
+              <div class="thiepsinhnhat__wishes-item" style="animation-delay: ${
+                index * 0.1
+              }s">
+                <div class="thiepsinhnhat__wishes-item-header">
+                  <span class="thiepsinhnhat__wishes-item-name">${escapeHtml(
+                    wish.name
+                  )}</span>
+                  <span class="thiepsinhnhat__wishes-item-date">${formatDate(
+                    wish.date
+                  )}</span>
+                </div>
+                <div class="thiepsinhnhat__wishes-item-message">${escapeHtml(
+                  wish.message
+                )}</div>
+              </div>
+            `;
+          })
+          .join("");
+      }
+
+      function initWishes() {
+        if (!WISHES.form || !WISHES.messageInput) {
+          return;
+        }
+
+        // Load và hiển thị lời chúc
+        renderWishes();
+
+        // Character counter
+        if (WISHES.charCount && WISHES.messageInput) {
+          WISHES.messageInput.addEventListener("input", (e) => {
+            const length = e.target.value.length;
+            WISHES.charCount.textContent = length;
+            if (length > 450) {
+              WISHES.charCount.style.color = "#ff6b6b";
+            } else {
+              WISHES.charCount.style.color =
+                "var(--thiepsinhnhat-color-primary)";
+            }
+          });
+        }
+
+        // Xử lý submit form
+        WISHES.form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const message = WISHES.messageInput.value.trim();
+
+          if (!message) {
+            return;
+          }
+
+          // Disable button trong khi xử lý
+          if (WISHES.submitBtn) {
+            WISHES.submitBtn.disabled = true;
+            const buttonText = WISHES.submitBtn.querySelector(
+              ".thiepsinhnhat__wishes-form-button-text"
+            );
+            if (buttonText) {
+              buttonText.textContent = "Đang gửi...";
+            }
+          }
+
+          try {
+            // Lưu lời chúc
+            await saveWish(message);
+
+            // Hiển thị thông báo thành công
+            if (WISHES.success) {
+              WISHES.success.hidden = false;
+              setTimeout(() => {
+                if (WISHES.success) {
+                  WISHES.success.hidden = true;
+                }
+              }, 3000);
+            }
+
+            // Reset form
+            WISHES.form.reset();
+            if (WISHES.charCount) {
+              WISHES.charCount.textContent = "0";
+              WISHES.charCount.style.color =
+                "var(--thiepsinhnhat-color-primary)";
+            }
+
+            // Reload danh sách lời chúc
+            await renderWishes();
+
+            // Tạo hiệu ứng confetti nhỏ
+            createConfettiBurst();
+
+            // Scroll đến lời chúc mới
+            if (WISHES.list && WISHES.list.firstElementChild) {
+              WISHES.list.firstElementChild.scrollIntoView({
+                behavior: "smooth",
+                block: "nearest",
+              });
+            }
+          } catch (error) {
+            console.error("Lỗi khi gửi lời chúc:", error);
+            alert("Có lỗi xảy ra khi gửi lời chúc. Vui lòng thử lại!");
+          } finally {
+            // Enable lại button
+            if (WISHES.submitBtn) {
+              WISHES.submitBtn.disabled = false;
+              const buttonText = WISHES.submitBtn.querySelector(
+                ".thiepsinhnhat__wishes-form-button-text"
+              );
+              if (buttonText) {
+                buttonText.textContent = "Gửi Lời Chúc";
+              }
+            }
+          }
+        });
+      }
+
+      // ===================================
       // Initialize Application
       // ===================================
       async function init() {
         try {
           console.log("🎉 Initializing Birthday Invitation...");
 
+          // Kiểm tra xem có guest parameter không
+          const hasGuest = hasGuestParameter();
+
+          // Nếu không có guest parameter, ẩn card và hiển thị modal nhập mã thiệp
+          if (!hasGuest) {
+            // Ẩn card thiệp
+            const cardWrapper = document.getElementById("cardWrapper");
+            if (cardWrapper) {
+              cardWrapper.style.display = "none";
+            }
+
+            // Ẩn music button
+            const musicButton = document.querySelector(".thiepsinhnhat__music");
+            if (musicButton) {
+              musicButton.style.display = "none";
+            }
+
+            // Khởi tạo password modal trước
+            initPasswordModal();
+
+            // Hiển thị modal nhập mã thiệp ngay
+            setTimeout(() => {
+              showPasswordModal();
+            }, 100);
+
+            // Chỉ khởi tạo các tính năng cơ bản
+            initCanvas();
+            createDOMParticles();
+
+            console.log("⏳ Waiting for guest code...");
+            return; // Dừng ở đây, không load dữ liệu thiệp
+          }
+
+          // Nếu đã có guest parameter, khởi tạo bình thường
           const invitation = await loadInvitationData();
           applyInvitationData(invitation);
           updateMetaTags(invitation);
@@ -3606,6 +4595,9 @@
           // Set password from invitation data
           setCurrentPassword(invitation);
 
+          // Set guest name for wishes
+          WISHES.currentGuestName = invitation.name || "Khách";
+
           // Core features
           initCanvas();
           createDOMParticles();
@@ -3613,6 +4605,7 @@
           initPasswordModal();
           initCardFlip();
           initCountdown();
+          initWishes();
 
           // Enhancement features
           initMouseEffects();
