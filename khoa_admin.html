@@ -206,6 +206,31 @@
         border-bottom: 2px solid rgba(212, 175, 55, 0.3);
       }
 
+      .guest-section-actions {
+        display: flex;
+        gap: var(--spacing-sm);
+        align-items: center;
+      }
+
+      .btn-delete-guest {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        background: rgba(244, 67, 54, 0.2);
+        border: 1px solid rgba(244, 67, 54, 0.5);
+        border-radius: var(--radius-sm);
+        color: #ef5350;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: "Montserrat", sans-serif;
+      }
+
+      .btn-delete-guest:hover {
+        background: rgba(244, 67, 54, 0.3);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+      }
+
       .guest-section-title {
         font-family: "Cormorant Garamond", serif;
         font-size: 1.8rem;
@@ -377,6 +402,17 @@
           style="display: none"
           onchange="importWishes(event)"
         />
+        <button
+          class="btn btn-danger"
+          onclick="confirmResetAll()"
+          style="
+            background: linear-gradient(135deg, #f44336 0%, #d32f2f 100%);
+            color: var(--color-light);
+            box-shadow: 0 10px 40px rgba(244, 67, 54, 0.4);
+          "
+        >
+          🗑️ Reset Tất Cả Lời Chúc
+        </button>
       </div>
 
       <div class="filter-section">
@@ -581,14 +617,25 @@
         );
 
         let html = `
-          <div class="guest-section">
+          <div class="guest-section" data-guest-slug="${escapeHtml(slug)}">
             <div class="guest-section-header">
               <div class="guest-section-title">${escapeHtml(
                 formatSlug(slug)
               )}</div>
-              <div class="guest-section-count">${
-                sortedWishes.length
-              } lời chúc</div>
+              <div class="guest-section-actions">
+                <div class="guest-section-count">${
+                  sortedWishes.length
+                } lời chúc</div>
+                <button 
+                  class="btn-delete-guest" 
+                  onclick="confirmDeleteGuest('${escapeHtml(slug)}')"
+                  title="Xóa tất cả lời chúc của ${escapeHtml(
+                    formatSlug(slug)
+                  )}"
+                >
+                  🗑️ Xóa
+                </button>
+              </div>
             </div>
             <div class="wishes-list">
         `;
@@ -707,6 +754,114 @@
         setTimeout(() => {
           alert.remove();
         }, 3000);
+      }
+
+      // Reset tất cả lời chúc
+      function resetAllWishes() {
+        try {
+          const keysToDelete = getAllWishesKeys();
+          let count = 0;
+
+          keysToDelete.forEach((key) => {
+            localStorage.removeItem(key);
+            count++;
+          });
+
+          allWishesData = {};
+          updateStats();
+          updateGuestFilter();
+          renderWishes();
+
+          showAlert(`Đã xóa ${count} lời chúc! ✅`, "success");
+          console.log(`✅ Đã reset ${count} lời chúc`);
+        } catch (error) {
+          console.error("Lỗi khi reset lời chúc:", error);
+          showAlert("Có lỗi xảy ra khi reset lời chúc! ❌", "error");
+        }
+      }
+
+      // Xóa lời chúc của một guest cụ thể
+      function deleteGuestWishes(slug) {
+        try {
+          const key = `birthday_wishes_${slug}`;
+          const existed = localStorage.getItem(key);
+
+          if (!existed) {
+            showAlert(
+              `Không tìm thấy lời chúc của ${formatSlug(slug)}.`,
+              "error"
+            );
+            return;
+          }
+
+          const wishes = JSON.parse(existed);
+          const count = wishes.length;
+
+          localStorage.removeItem(key);
+          delete allWishesData[slug];
+
+          updateStats();
+          updateGuestFilter();
+          renderWishes();
+
+          showAlert(
+            `Đã xóa ${count} lời chúc của ${formatSlug(slug)}! ✅`,
+            "success"
+          );
+          console.log(`✅ Đã xóa ${count} lời chúc của ${slug}`);
+        } catch (error) {
+          console.error("Lỗi khi xóa lời chúc:", error);
+          showAlert("Có lỗi xảy ra khi xóa lời chúc! ❌", "error");
+        }
+      }
+
+      // Xác nhận xóa lời chúc của một guest
+      function confirmDeleteGuest(slug) {
+        if (!allWishesData[slug] || allWishesData[slug].length === 0) {
+          showAlert(
+            `Không có lời chúc nào của ${formatSlug(slug)} để xóa.`,
+            "error"
+          );
+          return;
+        }
+
+        const count = allWishesData[slug].length;
+        const guestName = formatSlug(slug);
+
+        const confirmed = confirm(
+          `⚠️ CẢNH BÁO!\n\nBạn có chắc chắn muốn xóa ${count} lời chúc của "${guestName}"?\n\nHành động này không thể hoàn tác!`
+        );
+
+        if (confirmed) {
+          deleteGuestWishes(slug);
+        }
+      }
+
+      // Xác nhận reset với cảnh báo
+      function confirmResetAll() {
+        const total = Object.values(allWishesData).reduce(
+          (sum, wishes) => sum + wishes.length,
+          0
+        );
+
+        if (total === 0) {
+          showAlert("Không có lời chúc nào để xóa.", "error");
+          return;
+        }
+
+        const confirmed = confirm(
+          `⚠️ CẢNH BÁO!\n\nBạn có chắc chắn muốn xóa TẤT CẢ ${total} lời chúc của TẤT CẢ guests?\n\nHành động này không thể hoàn tác!`
+        );
+
+        if (confirmed) {
+          const doubleConfirm = confirm(
+            "Xác nhận lần cuối: Bạn có chắc chắn muốn xóa TẤT CẢ lời chúc của TẤT CẢ guests?"
+          );
+
+          if (doubleConfirm) {
+            resetAllWishes();
+          }
+        }
       }
 
       // Khởi tạo

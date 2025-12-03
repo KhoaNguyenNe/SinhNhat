@@ -3507,16 +3507,18 @@
       // Kiểm tra xem password (key) có tồn tại trong invitations.json không
       async function checkGuestKeyExists(key) {
         try {
-          const jsonPath = getResourcePath('data/invitations.json');
-          
+          const jsonPath = getResourcePath("data/invitations.json");
+
           const response = await fetch(jsonPath, {
             cache: "no-store",
             headers: {
-              'Accept': 'application/json',
-            }
+              Accept: "application/json",
+            },
           });
           if (!response.ok) {
-            console.error(`HTTP ${response.status}: Không thể tải invitations.json từ ${jsonPath}`);
+            console.error(
+              `HTTP ${response.status}: Không thể tải invitations.json từ ${jsonPath}`
+            );
             return false;
           }
           const data = await response.json();
@@ -4058,20 +4060,24 @@
       function getBasePath() {
         const pathname = window.location.pathname;
         // Nếu đang ở root (/) hoặc index.html ở root
-        if (pathname === '/' || pathname === '/index.html' || pathname.endsWith('/index.html')) {
-          return './';
+        if (
+          pathname === "/" ||
+          pathname === "/index.html" ||
+          pathname.endsWith("/index.html")
+        ) {
+          return "./";
         }
         // Nếu có subdirectory, lấy path đến thư mục chứa index.html
-        const lastSlash = pathname.lastIndexOf('/');
+        const lastSlash = pathname.lastIndexOf("/");
         if (lastSlash > 0) {
           return pathname.substring(0, lastSlash + 1);
         }
-        return './';
+        return "./";
       }
 
       function getResourcePath(relativePath) {
         const base = getBasePath();
-        const path = `${base}${relativePath}`.replace(/\/\//g, '/');
+        const path = `${base}${relativePath}`.replace(/\/\//g, "/");
         return path;
       }
 
@@ -4104,13 +4110,23 @@
         const slug = getInvitationSlug();
 
         try {
-          const jsonPath = getResourcePath('data/invitations.json');
-          
+          // Sử dụng đường dẫn relative từ root, hoạt động trên cả local và GitHub Pages
+          const basePath = window.location.pathname.includes("/")
+            ? window.location.pathname.substring(
+                0,
+                window.location.pathname.lastIndexOf("/") + 1
+              )
+            : "./";
+          const jsonPath = `${basePath}data/invitations.json`.replace(
+            /\/\//g,
+            "/"
+          );
+
           const response = await fetch(jsonPath, {
             cache: "no-store",
             headers: {
-              'Accept': 'application/json',
-            }
+              Accept: "application/json",
+            },
           });
           if (!response.ok) {
             throw new Error(
@@ -4261,7 +4277,7 @@
       // Để sử dụng: Tạo bin tại https://jsonbin.io và lấy ID
       // Hoặc để trống để chỉ dùng localStorage
       const WISHES_CONFIG = {
-        jsonbinId: "", // Ví dụ: "65a1b2c3d4e5f6g7h8i9j0"
+        jsonbinId: "692fbbe9d0ea881f400f34e8", // Ví dụ: "65a1b2c3d4e5f6g7h8i9j0"
         jsonbinApiKey: "", // Optional: nếu cần private bin
         jsonbinUrl: "https://api.jsonbin.io/v3/b",
         useCloud: false, // Set true nếu có jsonbinId
@@ -4676,138 +4692,136 @@
     </script>
     <script>
       // Đọc dữ liệu từ invitations.json
-      (function() {
-        // Helper function để lấy đường dẫn đúng
-        function getBasePath() {
-          const pathname = window.location.pathname;
-          if (pathname === '/' || pathname === '/index.html' || pathname.endsWith('/index.html')) {
-            return './';
-          }
-          const lastSlash = pathname.lastIndexOf('/');
-          if (lastSlash > 0) {
-            return pathname.substring(0, lastSlash + 1);
-          }
-          return './';
-        }
-        
-        function getResourcePath(relativePath) {
-          const base = getBasePath();
-          return `${base}${relativePath}`.replace(/\/\//g, '/');
-        }
-        
-        const jsonPath = getResourcePath('data/invitations.json');
-        
+      (function () {
+        // Sử dụng đường dẫn relative từ root, hoạt động trên cả local và GitHub Pages
+        const basePath = window.location.pathname.includes("/")
+          ? window.location.pathname.substring(
+              0,
+              window.location.pathname.lastIndexOf("/") + 1
+            )
+          : "./";
+        const jsonPath = `${basePath}data/invitations.json`.replace(
+          /\/\//g,
+          "/"
+        );
+
         fetch(jsonPath, {
           headers: {
-            'Accept': 'application/json',
-          }
+            Accept: "application/json",
+          },
         })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`Không tải được invitations.json từ ${jsonPath} (HTTP ${response.status})`);
-          }
-          return response.json();
-        })
-        .then((data) => {
-          // Lấy key guest từ URL: ?guest=van-mai
-          const params = new URLSearchParams(window.location.search);
-          const guestKeyFromUrl = params.get("guest");
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(
+                `Không tải được invitations.json từ ${jsonPath} (HTTP ${response.status})`
+              );
+            }
+            return response.json();
+          })
+          .then((data) => {
+            // Lấy key guest từ URL: ?guest=van-mai
+            const params = new URLSearchParams(window.location.search);
+            const guestKeyFromUrl = params.get("guest");
 
-          // Nếu URL không có hoặc không khớp, dùng defaultGuest
-          const fallbackKey = data.defaultGuest;
-          const guestKey =
-            guestKeyFromUrl && data.guests[guestKeyFromUrl]
-              ? guestKeyFromUrl
-              : fallbackKey;
+            // Nếu URL không có hoặc không khớp, dùng defaultGuest
+            const fallbackKey = data.defaultGuest;
+            const guestKey =
+              guestKeyFromUrl && data.guests[guestKeyFromUrl]
+                ? guestKeyFromUrl
+                : fallbackKey;
 
-          const guest = data.guests[guestKey];
+            const guest = data.guests[guestKey];
 
-          // Cập nhật nội dung trang
-          // Ví dụ: tên, tuổi, ngày, giờ, địa điểm, lời nhắn, ảnh, meta...
-          // Bạn chỉnh lại selector cho đúng HTML của mình
+            // Cập nhật nội dung trang
+            // Ví dụ: tên, tuổi, ngày, giờ, địa điểm, lời nhắn, ảnh, meta...
+            // Bạn chỉnh lại selector cho đúng HTML của mình
 
-          // Tên khách
-          const nameEls = document.querySelectorAll(
-            '[data-field="guest-name"]'
-          );
-          nameEls.forEach((el) => (el.textContent = guest.name));
-
-          // Tuổi (nếu có dùng)
-          const ageEl = document.querySelector('[data-field="guest-age"]');
-          if (ageEl) {
-            ageEl.textContent = guest.age;
-          }
-
-          // Ngày hiển thị (chuỗi tiếng Việt)
-          const dateDisplayEl = document.querySelector(
-            '[data-field="date-display"]'
-          );
-          if (dateDisplayEl) {
-            dateDisplayEl.textContent = guest.dateDisplay;
-          }
-
-          // Giờ
-          const timeEl = document.querySelector('[data-field="time"]');
-          if (timeEl) {
-            timeEl.textContent = guest.time;
-          }
-
-          // Địa điểm (mảng nhiều dòng)
-          const locationEl = document.querySelector('[data-field="location"]');
-          if (locationEl && Array.isArray(guest.location)) {
-            locationEl.innerHTML = guest.location.join("<br>");
-          }
-
-          // Lời nhắn
-          const messageEl = document.querySelector('[data-field="message"]');
-          if (messageEl) {
-            messageEl.textContent = guest.message;
-          }
-
-          // Ảnh đại diện
-          const avatarEl = document.querySelector('[data-field="avatar"]');
-          if (avatarEl) {
-            avatarEl.src = guest.image;
-            avatarEl.alt = guest.name;
-          }
-
-          // Meta title / description cho share link
-          if (guest.metaTitle) {
-            document.title = guest.metaTitle;
-            const ogTitle = document.querySelector('meta[property="og:title"]');
-            const twitterTitle = document.querySelector(
-              'meta[name="twitter:title"]'
+            // Tên khách
+            const nameEls = document.querySelectorAll(
+              '[data-field="guest-name"]'
             );
-            if (ogTitle) ogTitle.setAttribute("content", guest.metaTitle);
-            if (twitterTitle)
-              twitterTitle.setAttribute("content", guest.metaTitle);
-          }
+            nameEls.forEach((el) => (el.textContent = guest.name));
 
-          if (guest.metaDescription) {
-            const desc = document.querySelector('meta[name="description"]');
-            const ogDesc = document.querySelector(
-              'meta[property="og:description"]'
+            // Tuổi (nếu có dùng)
+            const ageEl = document.querySelector('[data-field="guest-age"]');
+            if (ageEl) {
+              ageEl.textContent = guest.age;
+            }
+
+            // Ngày hiển thị (chuỗi tiếng Việt)
+            const dateDisplayEl = document.querySelector(
+              '[data-field="date-display"]'
             );
-            const twitterDesc = document.querySelector(
-              'meta[name="twitter:description"]'
+            if (dateDisplayEl) {
+              dateDisplayEl.textContent = guest.dateDisplay;
+            }
+
+            // Giờ
+            const timeEl = document.querySelector('[data-field="time"]');
+            if (timeEl) {
+              timeEl.textContent = guest.time;
+            }
+
+            // Địa điểm (mảng nhiều dòng)
+            const locationEl = document.querySelector(
+              '[data-field="location"]'
             );
-            if (desc) desc.setAttribute("content", guest.metaDescription);
-            if (ogDesc) ogDesc.setAttribute("content", guest.metaDescription);
-            if (twitterDesc)
-              twitterDesc.setAttribute("content", guest.metaDescription);
-          }
+            if (locationEl && Array.isArray(guest.location)) {
+              locationEl.innerHTML = guest.location.join("<br>");
+            }
 
-          // Set password nếu có
-          if (guest.password && typeof STATE !== "undefined") {
-            STATE.currentPassword = guest.password;
-          }
+            // Lời nhắn
+            const messageEl = document.querySelector('[data-field="message"]');
+            if (messageEl) {
+              messageEl.textContent = guest.message;
+            }
 
-          // TODO: nếu bạn có countdown thì ở đây đọc guest.countdownDate và khởi động lại đồng hồ
-        })
-        .catch((err) => {
-          console.error("Lỗi khi tải invitations.json:", err);
-          // Có thể hiển thị thông báo lỗi nhẹ nhàng nếu muốn
-        });
+            // Ảnh đại diện
+            const avatarEl = document.querySelector('[data-field="avatar"]');
+            if (avatarEl) {
+              avatarEl.src = guest.image;
+              avatarEl.alt = guest.name;
+            }
+
+            // Meta title / description cho share link
+            if (guest.metaTitle) {
+              document.title = guest.metaTitle;
+              const ogTitle = document.querySelector(
+                'meta[property="og:title"]'
+              );
+              const twitterTitle = document.querySelector(
+                'meta[name="twitter:title"]'
+              );
+              if (ogTitle) ogTitle.setAttribute("content", guest.metaTitle);
+              if (twitterTitle)
+                twitterTitle.setAttribute("content", guest.metaTitle);
+            }
+
+            if (guest.metaDescription) {
+              const desc = document.querySelector('meta[name="description"]');
+              const ogDesc = document.querySelector(
+                'meta[property="og:description"]'
+              );
+              const twitterDesc = document.querySelector(
+                'meta[name="twitter:description"]'
+              );
+              if (desc) desc.setAttribute("content", guest.metaDescription);
+              if (ogDesc) ogDesc.setAttribute("content", guest.metaDescription);
+              if (twitterDesc)
+                twitterDesc.setAttribute("content", guest.metaDescription);
+            }
+
+            // Set password nếu có
+            if (guest.password && typeof STATE !== "undefined") {
+              STATE.currentPassword = guest.password;
+            }
+
+            // TODO: nếu bạn có countdown thì ở đây đọc guest.countdownDate và khởi động lại đồng hồ
+          })
+          .catch((err) => {
+            console.error("Lỗi khi tải invitations.json:", err);
+            // Có thể hiển thị thông báo lỗi nhẹ nhàng nếu muốn
+          });
       })(); // Đóng IIFE
     </script>
   </body>
