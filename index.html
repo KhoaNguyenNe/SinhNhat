@@ -4277,10 +4277,11 @@
       // Để sử dụng: Tạo bin tại https://jsonbin.io và lấy ID
       // Hoặc để trống để chỉ dùng localStorage
       const WISHES_CONFIG = {
-        jsonbinId: "692fbbe9d0ea881f400f34e8", 
-        jsonbinApiKey: "$2a$10$quAPh3s4iAAsLsdYmm9cWOH/L1vSkpnwT3A1ychK0lxDrQS0BDdBS", 
+        jsonbinId: "692fbfb4ae596e708f7fedb3",
+        jsonbinApiKey:
+          "$2a$10$quAPh3s4iAAsLsdYmm9cWOH/L1vSkpnwT3A1ychK0lxDrQS0BDdBS",
         jsonbinUrl: "https://api.jsonbin.io/v3/b",
-        useCloud: true, 
+        useCloud: true,
       };
 
       function getWishesStorageKey() {
@@ -4289,34 +4290,67 @@
       }
 
       async function loadWishes() {
-        // Thử load từ cloud trước
-        if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
-          try {
-            const wishes = await loadWishesFromCloud();
-            if (wishes && wishes.length > 0) {
-              // Đồng bộ với localStorage
-              const storageKey = getWishesStorageKey();
-              localStorage.setItem(storageKey, JSON.stringify(wishes));
-              return wishes;
-            }
-          } catch (error) {
-            console.warn("Không thể load từ cloud, dùng localStorage:", error);
+        const storageKey = getWishesStorageKey();
+        let cloudWishes = [];
+        let localWishes = [];
+
+        // 1. Load từ localStorage (cache)
+        try {
+          const stored = localStorage.getItem(storageKey);
+          if (stored) {
+            localWishes = JSON.parse(stored);
+            if (!Array.isArray(localWishes)) localWishes = [];
           }
+        } catch (error) {
+          console.warn("Lỗi khi đọc từ localStorage:", error);
         }
 
-        // Fallback to localStorage
-        try {
-          const storageKey = getWishesStorageKey();
-          const stored = localStorage.getItem(storageKey);
-          if (!stored) {
-            return [];
+        // 2. Load từ cloud (source of truth)
+        if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
+          try {
+            cloudWishes = await loadWishesFromCloud();
+            if (!Array.isArray(cloudWishes)) cloudWishes = [];
+          } catch (error) {
+            console.warn("Không thể load từ cloud, dùng localStorage:", error);
+            // Nếu cloud fail, dùng localStorage
+            return localWishes;
           }
-          const wishes = JSON.parse(stored);
-          return Array.isArray(wishes) ? wishes : [];
-        } catch (error) {
-          console.warn("Lỗi khi đọc lời chúc từ localStorage:", error);
-          return [];
+        } else {
+          // Nếu không dùng cloud, chỉ dùng localStorage
+          return localWishes;
         }
+
+        // 3. Merge cloud và localStorage (ưu tiên cloud, loại bỏ duplicate)
+        const mergedWishes = mergeWishes(cloudWishes, localWishes);
+
+        // 4. Cập nhật localStorage với dữ liệu đã merge
+        localStorage.setItem(storageKey, JSON.stringify(mergedWishes));
+
+        return mergedWishes;
+      }
+
+      // Merge wishes từ cloud và localStorage, loại bỏ duplicate theo id
+      function mergeWishes(cloudWishes, localWishes) {
+        const wishesMap = new Map();
+
+        // Ưu tiên cloud trước (dữ liệu mới nhất)
+        cloudWishes.forEach((wish) => {
+          if (wish && wish.id) {
+            wishesMap.set(wish.id, wish);
+          }
+        });
+
+        // Thêm từ localStorage nếu chưa có trong cloud
+        localWishes.forEach((wish) => {
+          if (wish && wish.id && !wishesMap.has(wish.id)) {
+            wishesMap.set(wish.id, wish);
+          }
+        });
+
+        // Sắp xếp theo timestamp (mới nhất trước)
+        return Array.from(wishesMap.values()).sort(
+          (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
+        );
       }
 
       async function loadWishesFromCloud() {
@@ -4363,27 +4397,31 @@
           timestamp: Date.now(),
         };
 
-        // Lưu vào localStorage trước
         try {
           const storageKey = getWishesStorageKey();
+
+          // QUAN TRỌNG: Load từ cloud trước để có dữ liệu mới nhất
+          // Điều này đảm bảo không ghi đè dữ liệu từ thiết bị khác
           const wishes = await loadWishes();
-          wishes.unshift(newWish); // Thêm vào đầu danh sách
+
+          // Thêm lời chúc mới vào đầu danh sách
+          wishes.unshift(newWish);
 
           // Giới hạn tối đa 1000 lời chúc
           const maxWishes = 1000;
           const trimmedWishes = wishes.slice(0, maxWishes);
 
+          // Lưu vào localStorage (cache)
           localStorage.setItem(storageKey, JSON.stringify(trimmedWishes));
 
-          // Đồng bộ lên cloud nếu có
+          // Lưu lên cloud TRƯỚC (source of truth)
           if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
             try {
               await saveWishesToCloud(trimmedWishes);
+              console.log("✅ Đã lưu lên cloud thành công");
             } catch (error) {
-              console.warn(
-                "Không thể lưu lên cloud, đã lưu vào localStorage:",
-                error
-              );
+              console.error("❌ Lỗi khi lưu lên cloud:", error);
+              // Vẫn giữ trong localStorage để retry sau
             }
           }
 
@@ -4528,6 +4566,17 @@
 
         // Load và hiển thị lời chúc
         renderWishes();
+
+        // Auto-refresh từ cloud mỗi 5 giây (để đồng bộ với thiết bị khác)
+        if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
+          setInterval(async () => {
+            try {
+              await renderWishes(); // Reload và render lại
+            } catch (error) {
+              console.warn("Lỗi khi auto-refresh wishes:", error);
+            }
+          }, 5000); // 5 giây
+        }
 
         // Character counter
         if (WISHES.charCount && WISHES.messageInput) {

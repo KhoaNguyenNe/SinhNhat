@@ -428,8 +428,50 @@
     </div>
 
     <script>
+      // ===================================
+      // JSONBin.io Configuration (phải giống với index.html)
+      // ===================================
+      const WISHES_CONFIG = {
+        jsonbinId: "692fbbe9d0ea881f400f34e8",
+        jsonbinApiKey:
+          "$2a$10$quAPh3s4iAAsLsdYmm9cWOH/L1vSkpnwT3A1ychK0lxDrQS0BDdBS",
+        jsonbinUrl: "https://api.jsonbin.io/v3/b",
+        useCloud: true,
+      };
+
       let allWishesData = {};
       let currentFilter = "all";
+
+      // Load tất cả wishes từ cloud
+      async function loadAllWishesFromCloud() {
+        if (!WISHES_CONFIG.useCloud || !WISHES_CONFIG.jsonbinId) {
+          return {};
+        }
+
+        try {
+          const url = `${WISHES_CONFIG.jsonbinUrl}/${WISHES_CONFIG.jsonbinId}/latest`;
+          const headers = {
+            "Content-Type": "application/json",
+          };
+
+          if (WISHES_CONFIG.jsonbinApiKey) {
+            headers["X-Master-Key"] = WISHES_CONFIG.jsonbinApiKey;
+          }
+
+          const response = await fetch(url, { headers });
+
+          if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+          }
+
+          const data = await response.json();
+          // Format: { "nguyen-van-a": [...], "em_iu_tlong": [...] }
+          return data.record || {};
+        } catch (error) {
+          console.error("Lỗi khi load từ cloud:", error);
+          return {};
+        }
+      }
 
       // Lấy tất cả keys từ localStorage có chứa "birthday_wishes"
       function getAllWishesKeys() {
@@ -448,14 +490,39 @@
         return key.replace("birthday_wishes_", "");
       }
 
-      // Load tất cả lời chúc từ localStorage
-      function loadAllWishes() {
+      // Load tất cả lời chúc từ cloud và localStorage
+      async function loadAllWishes() {
         const container = document.getElementById("wishesContainer");
-        container.innerHTML = '<div class="loading">Đang tải lời chúc...</div>';
+        container.innerHTML =
+          '<div class="loading">Đang tải lời chúc từ cloud...</div>';
 
         allWishesData = {};
-        const keys = getAllWishesKeys();
 
+        // 1. Load từ cloud (ưu tiên)
+        if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
+          try {
+            const cloudData = await loadAllWishesFromCloud();
+            // Merge vào allWishesData
+            Object.keys(cloudData).forEach((slug) => {
+              if (
+                Array.isArray(cloudData[slug]) &&
+                cloudData[slug].length > 0
+              ) {
+                allWishesData[slug] = cloudData[slug];
+              }
+            });
+            console.log(
+              "✅ Đã load từ cloud:",
+              Object.keys(allWishesData).length,
+              "guests"
+            );
+          } catch (error) {
+            console.warn("Không thể load từ cloud, dùng localStorage:", error);
+          }
+        }
+
+        // 2. Load từ localStorage (fallback và merge)
+        const keys = getAllWishesKeys();
         keys.forEach((key) => {
           try {
             const stored = localStorage.getItem(key);
@@ -463,12 +530,31 @@
               const wishes = JSON.parse(stored);
               const slug = getSlugFromKey(key);
               if (Array.isArray(wishes) && wishes.length > 0) {
-                allWishesData[slug] = wishes;
+                // Merge với cloud data (ưu tiên cloud)
+                if (!allWishesData[slug]) {
+                  allWishesData[slug] = wishes;
+                } else {
+                  // Merge và loại bỏ duplicate
+                  const existingIds = new Set(
+                    allWishesData[slug].map((w) => w.id)
+                  );
+                  const newWishes = wishes.filter(
+                    (w) => !existingIds.has(w.id)
+                  );
+                  allWishesData[slug] = [...allWishesData[slug], ...newWishes];
+                }
               }
             }
           } catch (error) {
             console.error(`Lỗi khi đọc ${key}:`, error);
           }
+        });
+
+        // Sắp xếp lại mỗi guest theo timestamp
+        Object.keys(allWishesData).forEach((slug) => {
+          allWishesData[slug].sort(
+            (a, b) => (b.timestamp || 0) - (a.timestamp || 0)
+          );
         });
 
         updateStats();
