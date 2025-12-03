@@ -432,7 +432,7 @@
       // JSONBin.io Configuration (phải giống với index.html)
       // ===================================
       const WISHES_CONFIG = {
-        jsonbinId: "692fbbe9d0ea881f400f34e8",
+        jsonbinId: "692fbfb4ae596e708f7fedb3",
         jsonbinApiKey:
           "$2a$10$quAPh3s4iAAsLsdYmm9cWOH/L1vSkpnwT3A1ychK0lxDrQS0BDdBS",
         jsonbinUrl: "https://api.jsonbin.io/v3/b",
@@ -465,7 +465,7 @@
           }
 
           const data = await response.json();
-          // Format: { "nguyen-van-a": [...], "em_iu_tlong": [...] }
+          // Format: { "nguyen-van-a": [...], ... }
           return data.record || {};
         } catch (error) {
           console.error("Lỗi khi load từ cloud:", error);
