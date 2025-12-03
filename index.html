@@ -2402,7 +2402,7 @@
       }
 
       .thiepsinhnhat__card-title-main {
-        font-size: 4rem;
+        font-size: 3rem;
       }
     }
   </style>
@@ -2705,7 +2705,22 @@
                         >
                           Quán ốc 30k
                         </address>
-                        <a style="color: #fff; padding: 10px;background: #aa8f3b;border-radius: 20px;font-size: 11px; text-decoration: none; margin-top: 10px; display: inline-block;" href="https://maps.app.goo.gl/ViLGLGW4SzqRxANe6" target="_blank" rel="noopener noreferrer">Xem google maps</a>
+                        <a
+                          style="
+                            color: #fff;
+                            padding: 10px;
+                            background: #aa8f3b;
+                            border-radius: 20px;
+                            font-size: 11px;
+                            text-decoration: none;
+                            margin-top: 10px;
+                            display: inline-block;
+                          "
+                          href="https://maps.app.goo.gl/ViLGLGW4SzqRxANe6"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          >Xem google maps</a
+                        >
                       </div>
                     </div>
                   </div>
@@ -4735,19 +4750,9 @@
       }
     </script>
     <script>
-      // Đọc dữ liệu từ invitations.json
+      // Đọc dữ liệu từ invitations.json (dùng chung helper getResourcePath để hoạt động cả local & GitHub Pages)
       (function () {
-        // Sử dụng đường dẫn relative từ root, hoạt động trên cả local và GitHub Pages
-        const basePath = window.location.pathname.includes("/")
-          ? window.location.pathname.substring(
-              0,
-              window.location.pathname.lastIndexOf("/") + 1
-            )
-          : "./";
-        const jsonPath = `${basePath}data/invitations.json`.replace(
-          /\/\//g,
-          "/"
-        );
+        const jsonPath = getResourcePath("data/invitations.json");
 
         fetch(jsonPath, {
           headers: {
