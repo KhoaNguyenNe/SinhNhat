@@ -3,7 +3,6 @@
   "guests": {
     "nguyen-van-a": {
       "name": "ABC",
-      "age": 25,
       "countdownDate": "2025-12-09T21:00:00+07:00",
       "dateISO": "2025-12-09",
       "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
@@ -24,22 +23,57 @@
     },
     "em_iu_tlong": {
       "name": "Huỳnh Nhật Thiên Long",
-      "age": 25,
       "countdownDate": "2025-12-09T21:00:00+07:00",
       "dateISO": "2025-12-09",
       "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
       "time": "21:00",
       "location": [
-        "Jo li bê"
+        "Quán ốc 30k"
       ],
       "message":
-        "Sự hiện diện của bạn là món quà tuyệt vời nhất cho ngày đặc biệt này. Hãy đến và cùng tôi tạo nên những kỷ niệm không thể quên!",
-      "image": "https://i.pravatar.cc/300?img=12",
+        "Người anh iu nhứt thế giới, bé iu của anhhhhhh",
+      "image": "img/TLONG.jpg",
       "metaTitle": "Bé Long iu dấu",
       "metaDescription":
         "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
       "sharePath": "index.html?guest=em_iu_tlong",
       "password": "em_iu_tlong"
+    },
+    "lac": {
+      "name": "Phan Phúc Lộc",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Mời Lạc đi ăn buổi ăn zui zui mừng sinh nhật anh nhá :>",
+      "image": "img/PLOC.jpg",
+      "metaTitle": "Bé Lạc",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=lac",
+      "password": "09120202"
+    },
+    "hy": {
+      "name": "Phan Thị Yến Vy",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Côn lòn đi ăn thoai nàooooooooo",
+      "image": "img/IVY.jpg",
+      "metaTitle": "Ivy :>",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=hy",
+      "password": "09121807"
     }
   }
 }
