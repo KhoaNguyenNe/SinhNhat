@@ -4567,15 +4567,18 @@
         // Load và hiển thị lời chúc
         renderWishes();
 
-        // Auto-refresh từ cloud mỗi 5 giây (để đồng bộ với thiết bị khác)
+        // Cách 3: KHÔNG auto-refresh liên tục để tránh tốn request
+        // - Danh sách sẽ được reload:
+        //   + Ngay khi vào trang (ở trên)
+        //   + Sau khi gửi lời chúc (trong submit handler)
+        //   + Khi tab lấy lại focus (window 'focus' bên dưới)
         if (WISHES_CONFIG.useCloud && WISHES_CONFIG.jsonbinId) {
-          setInterval(async () => {
-            try {
-              await renderWishes(); // Reload và render lại
-            } catch (error) {
-              console.warn("Lỗi khi auto-refresh wishes:", error);
-            }
-          }, 5000); // 5 giây
+          window.addEventListener("focus", () => {
+            // Khi người dùng quay lại tab, reload lời chúc một lần
+            renderWishes().catch((error) => {
+              console.warn("Lỗi khi reload wishes khi focus:", error);
+            });
+          });
         }
 
         // Character counter
