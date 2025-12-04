@@ -164,6 +164,132 @@
         "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
       "sharePath": "index.html?guest=7t",
       "password": "09120402"
+    },
+    "xh": {
+      "name": "Phan Thị Xuân Huyên",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "ĐI ĂNG HEHE",
+      "image": "img/xhuyen.jpg",
+      "metaTitle": "Con khùng",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=xh",
+      "password": "Khoa_Huyen"
+    },
+    "mai_iu": {
+      "name": "Võ Văn Mãi",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Dume ko đi là đấm cho",
+      "image": "img/mai.jpg",
+      "metaTitle": "Ven mẽi",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=mai_iuuu",
+      "password": "Mai_Khoa"
+    },
+    "nhung_nho": {
+      "name": "Tạ Hoàng Nhung",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Làm cái kèo nhó. Hẹ hẹ hẹ",
+      "image": "img/hnhung.jpg",
+      "metaTitle": "7t",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=nhung_nho",
+      "password": "NhungNho_KhoaNguyen"
+    },
+    "tngan": {
+      "name": "Nguyễn Thị Thanh Ngân",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Cùng nhau băng qua bao đại dương :> Con lồn đi ăn vs t",
+      "image": "img/tngan.jpg",
+      "metaTitle": "Then Ngưn",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=tngan",
+      "password": "KhoaNe_NganNe"
+    },
+    "con_tro_tri": {
+      "name": "Nguyễn Minh Trí",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Đỉ mẹ m rảnh thì qua ăn 1 bữa nha đỉ loz",
+      "image": "img/tri.jpg",
+      "metaTitle": "Tró Trí",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=con_tro_tri",
+      "password": "DiMeMay"
+    },
+    "y": {
+      "name": "Nguyễn Kim Vương Ý",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Sự hiện diện của chị là niềm vui của em!! Đi ăn vs nhau 1 bữa nha chị :>",
+      "image": "img/birthday.png",
+      "metaTitle": "Chị Vương Ý",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=y",
+      "password": "0912"
+    },
+    "yen": {
+      "name": "Hà Vân Yến",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Sự hiện diện của chị là niềm vui của em!! Đi ăn vs nhau 1 bữa nha chị :>",
+      "image": "img/birthday.png",
+      "metaTitle": "Chị Vân Yến",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=yen",
+      "password": "chivanyen"
     }
   }
 }
