@@ -290,6 +290,24 @@
         "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
       "sharePath": "index.html?guest=yen",
       "password": "chivanyen"
+    },
+    "tnhan": {
+      "name": "Nguyễn Thành Nhân",
+      "countdownDate": "2025-12-09T21:00:00+07:00",
+      "dateISO": "2025-12-09",
+      "dateDisplay": "Thứ Ba, 09 tháng 12, 2025",
+      "time": "21:00",
+      "location": [
+        "Quán ốc 30k"
+      ],
+      "message":
+        "Đi ăn chung zui vs anh 1 bữa :>",
+      "image": "img/tnhan.jpg",
+      "metaTitle": "Đồ tồi tệ",
+      "metaDescription":
+        "Thiệp mời sinh nhật online sang trọng, hiện đại với hiệu ứng 3D đẹp mắt.",
+      "sharePath": "index.html?guest=tnhan",
+      "password": "09122108"
     }
   }
 }
